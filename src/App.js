@@ -2,14 +2,37 @@ import { useState } from "react";
 import "./App.css";
 import useApp from "./useApp";
 
+async function postJSON(data) {
+  const url = "https://9dbd-57-133-7-6.ngrok-free.app/v1/hackathon/pois/?tenant=xpo";
+
+  try {
+    const response = await fetch(url, {
+      method: "POST", // or 'PUT'
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    console.log("Success:", result);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 const Form = ({ type = "create" }) => {
   const [name, setName] = useState("");
-  const onSubmit = () => {
-    alert("onSubmit");
+  const onSubmit = async () => {
+    const payload = {
+      name: "Spaces Ontruck",
+    };
+    const response = await postJSON(payload);
+    console.log("🔥 ~ response:", response);
   };
   return (
     <div>
-      <div>Nombre</div>
+      <div>Nombree</div>
       <input
         type="text"
         value={name}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import useApp from "./useApp";
 import Header from "./components/Header";
+import List from "./components/List";
 
 const Form = ({ type = "create" }) => {
   const [name, setName] = useState("");
@@ -33,7 +34,10 @@ function App() {
     <div className="App">
       <Header />
         <div>{config.tenant}</div>
+        <div className="body" >
+          <List />
         <Form />
+        </div>
     </div>
   );
 }

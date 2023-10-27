@@ -1,11 +1,12 @@
 import useSWR from "swr";
+import { HOST } from "./settings/config";
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const fetcher = async (...args) => {
   await sleep(2000);
   const config = {
-    tenant: "xpo",
+    tenant: HOST,
   };
   return config;
 };

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import useApp from "./useApp";
+import Header from "./components/Header";
+import List from "./components/List";
 
 async function postJSON(data) {
   const url = "https://9dbd-57-133-7-6.ngrok-free.app/v1/hackathon/pois/?tenant=xpo";
@@ -53,10 +55,12 @@ function App() {
   if (isLoading) return <></>;
   return (
     <div className="App">
-      <header>
+      <Header />
         <div>{config.tenant}</div>
+        <div className="body" >
+          <List />
         <Form />
-      </header>
+        </div>
     </div>
   );
 }

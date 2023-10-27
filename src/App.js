@@ -1,26 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import useApp from "./useApp";
+
+const Form = ({ type = "create" }) => {
+  const [name, setName] = useState("");
+  const onSubmit = () => {
+    alert("onSubmit");
+  };
+  return (
+    <div>
+      <div>Nombre</div>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button type="button" onClick={() => onSubmit()}>
+        Crear
+      </button>
+    </div>
+  );
+};
 
 function App() {
+  const { config, error, isLoading } = useApp();
+  console.log("🔥 ~ isLoading:", isLoading);
+  console.log("🔥 ~ error:", error);
+  console.log("🔥 ~ config:", config);
+  if (isLoading) return <></>;
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <div>
-        header
-      </div>
+      <header>
+        <div>{config.tenant}</div>
+        <Form />
+      </header>
     </div>
   );
 }

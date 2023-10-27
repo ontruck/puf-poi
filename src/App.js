@@ -5,7 +5,8 @@ import Header from "./components/Header";
 import List from "./components/List";
 
 async function postJSON(data) {
-  const url = "https://9dbd-57-133-7-6.ngrok-free.app/v1/hackathon/pois/?tenant=xpo";
+  const url =
+    "https://9dbd-57-133-7-6.ngrok-free.app/v1/hackathon/pois/?tenant=correos";
 
   try {
     const response = await fetch(url, {
@@ -25,11 +26,16 @@ async function postJSON(data) {
 
 const Form = ({ type = "create" }) => {
   const [name, setName] = useState("");
+  const [lat, setLat] = useState(0);
+  const [long, setLong] = useState(0);
   const onSubmit = async () => {
     const payload = {
-      name: "Spaces Ontruck",
+      name,
+      lat,
+      long,
     };
     const response = await postJSON(payload);
+    alert("se ha creado guay");
     console.log("🔥 ~ response:", response);
   };
   return (
@@ -39,6 +45,18 @@ const Form = ({ type = "create" }) => {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
+      />
+      <div>Longitud</div>
+      <input
+        type="number"
+        value={lat}
+        onChange={(e) => setLat(e.target.value)}
+      />
+      <div>Latitud</div>
+      <input
+        type="number"
+        value={long}
+        onChange={(e) => setLong(e.target.value)}
       />
       <button type="button" onClick={() => onSubmit()}>
         Crear
@@ -56,11 +74,11 @@ function App() {
   return (
     <div className="App">
       <Header />
-        <div>{config.tenant}</div>
-        <div className="body" >
-          <List />
+      <div>{config.tenant}</div>
+      <div className="body">
+        <List />
         <Form />
-        </div>
+      </div>
     </div>
   );
 }

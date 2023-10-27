@@ -28,19 +28,28 @@ const Form = ({ type = "create" }) => {
   const [name, setName] = useState("");
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
+  const [req, setReq] = useState(false);
+  const [car, setCar] = useState(false);
+  const [bike, setBike] = useState(false);
+
   const onSubmit = async () => {
+    const accepted_vehicles = {
+      vehicles: [],
+    };
+    if (car) accepted_vehicles.vehicles.push("van");
+    if (bike) accepted_vehicles.vehicles.push("truck");
     const payload = {
       name,
       lat,
       long,
+      requires_access_permission: req,
     };
     const response = await postJSON(payload);
     alert("se ha creado guay");
-    console.log("🔥 ~ response:", response);
   };
   return (
     <div>
-      <div>Nombree</div>
+      <div>Name</div>
       <input
         type="text"
         value={name}
@@ -58,9 +67,17 @@ const Form = ({ type = "create" }) => {
         value={long}
         onChange={(e) => setLong(e.target.value)}
       />
-      <button type="button" onClick={() => onSubmit()}>
-        Crear
-      </button>
+      <div>Requires permission</div>
+      <input type="checkbox" checked={!!req} onClick={(e) => setReq(!req)} />
+      <div>Van</div>
+      <input type="checkbox" checked={!!car} onClick={(e) => setCar(!car)} />
+      <div>Truck</div>
+      <input type="checkbox" checked={!!bike} onClick={(e) => setBike(!bike)} />
+      <div>
+        <button type="button" onClick={() => onSubmit()}>
+          Crear
+        </button>
+      </div>
     </div>
   );
 };

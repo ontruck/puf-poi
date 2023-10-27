@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import useApp from "./useApp";
+import Header from "./components/Header";
 
 const Form = ({ type = "create" }) => {
   const [name, setName] = useState("");
@@ -30,10 +31,9 @@ function App() {
   if (isLoading) return <></>;
   return (
     <div className="App">
-      <header>
+      <Header />
         <div>{config.tenant}</div>
         <Form />
-      </header>
     </div>
   );
 }
